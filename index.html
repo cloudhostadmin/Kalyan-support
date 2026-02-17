@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kalyan 2026 - Support Request</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold-dark:   #a36a00;
+      --gold:        #c98a10;
+      --gold-light:  #e4a929;
+      --gold-pale:   #fdf3dc;
+      --gold-border: #e8d08a;
+      --cream:       #fffbf2;
+      --cream-mid:   #fdf6e4;
+      --ink:         #2b1d0e;
+      --ink-mid:     #5a3f20;
+      --ink-light:   #8a6d45;
+      --white:       #ffffff;
+      --error:       #c0392b;
+      --error-bg:    #fdf2f0;
+      --success:     #1a6b3e;
+      --success-bg:  #edfbf3;
+      --radius:      12px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      background-image:
+        radial-gradient(ellipse at 15% 10%, rgba(228,169,41,.08) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 90%, rgba(193,120,23,.08) 0%, transparent 55%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 16px 56px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 620px;
+      background: var(--white);
+      border-radius: 20px;
+      box-shadow: 0 2px 0 var(--gold-border), 0 8px 32px rgba(163,106,0,.12), 0 32px 64px rgba(163,106,0,.07);
+      overflow: hidden;
+      animation: cardIn .45s cubic-bezier(.22,1,.36,1) both;
+    }
+    @keyframes cardIn {
+      from { opacity:0; transform:translateY(28px) scale(.98); }
+      to   { opacity:1; transform:translateY(0) scale(1); }
+    }
+
+    .banner {
+      background: linear-gradient(135deg, #c98a10 0%, #a36a00 55%, #7a4f00 100%);
+      padding: 28px 32px 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .banner::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(45deg, transparent, transparent 28px, rgba(255,255,255,.04) 28px, rgba(255,255,255,.04) 30px);
+      pointer-events: none;
+    }
+    .banner-logo {
+      width: 76px; height: 76px;
+      border-radius: 12px;
+      border: 2px solid rgba(255,255,255,.35);
+      object-fit: contain;
+      background: rgba(255,255,255,.15);
+      flex-shrink: 0;
+    }
+    .banner-text { flex: 1; }
+    .banner-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.15;
+      text-shadow: 0 1px 4px rgba(0,0,0,.25);
+    }
+    .banner-sub {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,.8);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+    .banner-tagline {
+      font-size: 12.5px;
+      color: rgba(255,255,255,.65);
+      margin-top: 6px;
+      font-style: italic;
+    }
+
+    .body { padding: 32px; }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      color: var(--gold-dark);
+      margin-bottom: 6px;
+    }
+    .section-desc {
+      font-size: 13.5px;
+      color: var(--ink-light);
+      margin-bottom: 24px;
+      line-height: 1.55;
+    }
+
+    /* TOGGLE */
+    .toggle-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .toggle-btn {
+      flex: 1;
+      padding: 13px 10px;
+      border-radius: var(--radius);
+      border: 2px solid var(--gold-border);
+      background: var(--cream-mid);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--ink-mid);
+      cursor: pointer;
+      transition: all .2s;
+      text-align: center;
+      line-height: 1.35;
+    }
+    .toggle-btn .icon { display: block; font-size: 22px; margin-bottom: 4px; }
+    .toggle-btn.active {
+      border-color: var(--gold);
+      background: var(--gold-pale);
+      color: var(--gold-dark);
+      box-shadow: 0 0 0 3px rgba(201,138,16,.14);
+    }
+    .toggle-btn:hover:not(.active):not(:disabled) {
+      border-color: var(--gold-light);
+      background: #fffbf4;
+    }
+    .toggle-btn:disabled { cursor: default; opacity: .7; }
+
+    /* PANELS */
+    .lookup-panel { display: none; }
+    .lookup-panel.active { display: block; }
+
+    /* FORM */
+    .field { margin-bottom: 20px; }
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink-mid);
+      margin-bottom: 7px;
+    }
+    label .req { color: var(--error); margin-left: 2px; }
+
+    input[type="text"], input[type="tel"], textarea, select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 2px solid #e5d8c0;
+      border-radius: var(--radius);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--ink);
+      background: var(--white);
+      transition: border-color .2s, box-shadow .2s;
+      outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,138,16,.12);
+    }
+    input:disabled, textarea:disabled, select:disabled {
+      background: #f5efe0;
+      color: #999;
+      cursor: not-allowed;
+    }
+    input::placeholder, textarea::placeholder { color: #b8a680; }
+    textarea { resize: vertical; min-height: 110px; line-height: 1.6; }
+    .char-hint { font-size: 11.5px; color: #b0956a; text-align: right; margin-top: 4px; }
+
+    /* MESSAGES */
+    .msg {
+      border-radius: var(--radius);
+      padding: 13px 16px;
+      font-size: 13.5px;
+      font-weight: 500;
+      line-height: 1.5;
+      margin-bottom: 20px;
+      display: none;
+    }
+    .msg.show    { display: block; }
+    .msg.error   { background: var(--error-bg);   color: var(--error);   border: 1.5px solid #f5c5be; }
+    .msg.success { background: var(--success-bg); color: var(--success); border: 1.5px solid #a8e6c5; }
+    .msg.info    { background: #fff8e6;            color: #7a5500;        border: 1.5px solid var(--gold-border); }
+
+    /* DIVIDER */
+    .divider { display: flex; align-items: center; gap: 12px; margin: 8px 0 24px; }
+    .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--gold-border); }
+    .divider span { font-size: 11.5px; color: var(--ink-light); white-space: nowrap; }
+
+    /* CUSTOMER BADGE */
+    .customer-badge {
+      display: none;
+      background: linear-gradient(135deg, var(--gold-pale) 0%, #fff8e8 100%);
+      border: 1.5px solid var(--gold-border);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      margin-bottom: 24px;
+    }
+    .customer-badge.show { display: block; }
+    .customer-badge-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      color: var(--gold-dark);
+      margin-bottom: 2px;
+    }
+    .customer-badge-id { font-size: 12px; color: var(--ink-light); }
+
+    /* CATEGORY GRID */
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .cat-option {
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1.5px solid #e5d8c0;
+      background: var(--cream-mid);
+      font-size: 12.5px;
+      color: var(--ink-mid);
+      cursor: pointer;
+      transition: all .18s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      user-select: none;
+    }
+    .cat-option.selected {
+      border-color: var(--gold);
+      background: var(--gold-pale);
+      color: var(--gold-dark);
+      font-weight: 600;
+    }
+    .cat-option:hover:not(.selected) { border-color: var(--gold-light); background: #fffbf4; }
+    .cat-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold-border); flex-shrink: 0; }
+    .cat-option.selected .cat-dot { background: var(--gold); }
+
+    /* SUBMIT BUTTON */
+    .submit-btn {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-dark) 100%);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .25s;
+      box-shadow: 0 4px 18px rgba(163,106,0,.22);
+      margin-top: 8px;
+    }
+    .submit-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(163,106,0,.32); }
+    .submit-btn:active:not(:disabled) { transform: translateY(0); }
+    .submit-btn:disabled { opacity: .55; cursor: not-allowed; transform: none; }
+
+    /* FORM SECTION */
+    .form-section { display: none; }
+    .form-section.show { display: block; }
+
+    /* SPINNER */
+    .spinner-wrap {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(255,251,242,.88);
+      backdrop-filter: blur(6px);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+    }
+    .spinner-wrap.show { display: flex; }
+    .spinner-box {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 28px 36px;
+      text-align: center;
+      box-shadow: 0 12px 40px rgba(163,106,0,.2);
+      border: 1.5px solid var(--gold-border);
+    }
+    .spinner {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      border: 3px solid var(--gold-border);
+      border-top-color: var(--gold);
+      animation: spin .8s linear infinite;
+      margin: 0 auto 14px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner-box p { font-size: 14px; color: var(--ink-mid); font-weight: 500; }
+
+    /* SUCCESS SCREEN */
+    .success-screen { display: none; text-align: center; padding: 48px 32px; }
+    .success-screen.show { display: block; }
+    .success-icon {
+      width: 72px; height: 72px;
+      background: linear-gradient(135deg, #26a96e, #1a6b3e);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 22px;
+      font-size: 34px; color: #fff;
+      box-shadow: 0 6px 24px rgba(26,107,62,.25);
+    }
+    .success-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      color: var(--success);
+      margin-bottom: 10px;
+    }
+    .success-desc { font-size: 15px; color: var(--ink-light); line-height: 1.65; }
+    .ticket-num {
+      display: inline-block;
+      margin-top: 18px;
+      background: var(--gold-pale);
+      border: 1.5px solid var(--gold-border);
+      border-radius: 8px;
+      padding: 8px 18px;
+      font-size: 13px;
+      color: var(--gold-dark);
+      font-weight: 600;
+      letter-spacing: .04em;
+    }
+
+    @media (max-width: 520px) {
+      .banner { padding: 22px 20px 20px; flex-direction: column; text-align: center; }
+      .body { padding: 24px 20px; }
+      .banner-title { font-size: 22px; }
+      .cat-grid { grid-template-columns: 1fr; }
+      .toggle-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="spinner-wrap" id="spinnerWrap">
+  <div class="spinner-box">
+    <div class="spinner"></div>
+    <p id="spinnerMsg">Processing...</p>
+  </div>
+</div>
+
+<div class="card">
+  <div class="banner">
+    <img src="https://raw.githubusercontent.com/cloudhostadmin/KALYAN_CENTURY_2026/main/kal2026.jpeg"
+         alt="Kalyan 2026" class="banner-logo" onerror="this.style.display='none'">
+    <div class="banner-text">
+      <div class="banner-title">&#2325;&#2354;&#2381;&#2351;&#2366;&#2339; &#2358;&#2340;&#2366;&#2348;&#2381;&#2342;&#2368; &#2357;&#2352;&#2381;&#2359;</div>
+      <div class="banner-sub">Kalyan 2026</div>
+      <div class="banner-tagline">Customer Support &amp; Grievance Portal</div>
+    </div>
+  </div>
+
+  <div class="body">
+
+    <!-- SUCCESS -->
+    <div class="success-screen" id="successScreen">
+      <div class="success-icon">&#10003;</div>
+      <div class="success-title">Request Submitted!</div>
+      <p class="success-desc">Your support request has been received.<br>Our team will get back to you shortly.</p>
+      <div class="ticket-num" id="ticketNum"></div>
+    </div>
+
+    <!-- FORM CONTENT -->
+    <div id="formContent">
+      <div class="section-title">Submit a Support Request</div>
+      <p class="section-desc">
+        Please verify your identity first &mdash; use your <strong>registered mobile number</strong> or <strong>Customer ID</strong>.
+      </p>
+
+      <!-- TOGGLE -->
+      <div class="toggle-row">
+        <button class="toggle-btn active" id="btnPhone" onclick="switchMode('phone')">
+          <span class="icon">&#128241;</span>Mobile Number
+        </button>
+        <button class="toggle-btn" id="btnCustId" onclick="switchMode('custid')">
+          <span class="icon">&#128196;</span>Customer ID
+        </button>
+      </div>
+
+      <!-- PHONE PANEL -->
+      <div class="lookup-panel active" id="phonePanel">
+        <div class="field">
+          <label for="phoneInput">Registered Mobile Number <span class="req">*</span></label>
+          <input type="tel" id="phoneInput" placeholder="Enter 10-digit mobile number" maxlength="10" inputmode="numeric">
+        </div>
+        <div class="msg" id="phoneMsg"></div>
+        <button class="submit-btn" id="phoneVerifyBtn" onclick="verifyPhone()">Verify &amp; Continue</button>
+      </div>
+
+      <!-- CUSTOMER ID PANEL -->
+      <div class="lookup-panel" id="custIdPanel">
+        <div class="field">
+          <label for="custIdInput">Customer ID <span class="req">*</span></label>
+          <input type="text" id="custIdInput" placeholder="Enter your Customer ID" autocomplete="off">
+        </div>
+        <div class="msg" id="custIdMsg"></div>
+        <button class="submit-btn" id="custIdVerifyBtn" onclick="verifyCustId()">Verify &amp; Continue</button>
+      </div>
+
+      <!-- AFTER VERIFY -->
+      <div class="divider" id="formDivider" style="display:none">
+        <span>&#10022; Verified &mdash; complete your request below &#10022;</span>
+      </div>
+      <div class="customer-badge" id="customerBadge">
+        <div class="customer-badge-name" id="badgeName"></div>
+        <div class="customer-badge-id" id="badgeId"></div>
+      </div>
+
+      <!-- REQUEST FORM -->
+      <div class="form-section" id="requestForm">
+        <div class="field">
+          <label>Issue Category <span class="req">*</span></label>
+          <div class="cat-grid" id="catGrid">
+            <div class="cat-option" onclick="selectCat(this,'Subscription Issue')"><span class="cat-dot"></span>Subscription Issue</div>
+            <div class="cat-option" onclick="selectCat(this,'Delivery Problem')"><span class="cat-dot"></span>Delivery Problem</div>
+            <div class="cat-option" onclick="selectCat(this,'Address Update')"><span class="cat-dot"></span>Address Update</div>
+            <div class="cat-option" onclick="selectCat(this,'Payment / Billing')"><span class="cat-dot"></span>Payment / Billing</div>
+            <div class="cat-option" onclick="selectCat(this,'Missing Issue / Magazine')"><span class="cat-dot"></span>Missing Issue / Magazine</div>
+            <div class="cat-option" onclick="selectCat(this,'Other')"><span class="cat-dot"></span>Other</div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="subjectInput">Subject <span class="req">*</span></label>
+          <input type="text" id="subjectInput" placeholder="Brief subject of your query" maxlength="120">
+        </div>
+
+        <div class="field">
+          <label for="descInput">Describe Your Issue <span class="req">*</span></label>
+          <textarea id="descInput" maxlength="800" placeholder="Please describe your issue in detail..." oninput="updateCharCount()"></textarea>
+          <div class="char-hint"><span id="charCount">0</span> / 800 characters</div>
+        </div>
+
+        <div class="field">
+          <label for="contactPref">Preferred Contact Method</label>
+          <select id="contactPref">
+            <option value="">-- Select (optional) --</option>
+            <option value="SMS">SMS / WhatsApp</option>
+            <option value="Call">Phone Call</option>
+            <option value="Email">Email</option>
+          </select>
+        </div>
+
+        <div class="msg" id="submitMsg"></div>
+        <button class="submit-btn" id="finalSubmitBtn" onclick="submitRequest()">Submit Support Request</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ── CONFIG ──
+var SCRIPT_URL         = 'https://script.google.com/macros/s/AKfycbyu57KKl5UqYhh9e7wCvepLPxSNuAK9SsV5xQAk1kuo6catp-joGDo1vQ5sZMbZmOHl/exec';
+var SUPPORT_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzgWDA4MhODFYnxHtnDfmJOAazRMS1o54lTIBrPhNAGJ9xNUJE2C-rWVlk67dP_dnF2/exec';
+var TIMEOUT_MS         = 28000;
+
+// ── STATE ──
+var appState = {
+  mode: 'phone',
+  verified: false,
+  customerData: null,
+  selectedCategory: ''
+};
+
+// ── UI HELPERS ──
+function showSpinner(msg) {
+  document.getElementById('spinnerMsg').textContent = msg || 'Processing...';
+  document.getElementById('spinnerWrap').classList.add('show');
+}
+function hideSpinner() {
+  document.getElementById('spinnerWrap').classList.remove('show');
+}
+function showMsg(id, text, type) {
+  var el = document.getElementById(id);
+  el.textContent = text;
+  el.className = 'msg show ' + type;
+}
+function hideMsg(id) {
+  var el = document.getElementById(id);
+  el.className = 'msg';
+  el.textContent = '';
+}
+function updateCharCount() {
+  document.getElementById('charCount').textContent = document.getElementById('descInput').value.length;
+}
+
+// ── TOGGLE MODE ──
+function switchMode(mode) {
+  if (appState.verified) { return; }
+  appState.mode = mode;
+
+  var isPhone  = (mode === 'phone');
+  var isCustId = (mode === 'custid');
+
+  document.getElementById('btnPhone').className  = isPhone  ? 'toggle-btn active' : 'toggle-btn';
+  document.getElementById('btnCustId').className = isCustId ? 'toggle-btn active' : 'toggle-btn';
+
+  document.getElementById('phonePanel').className  = isPhone  ? 'lookup-panel active' : 'lookup-panel';
+  document.getElementById('custIdPanel').className = isCustId ? 'lookup-panel active' : 'lookup-panel';
+
+  hideMsg('phoneMsg');
+  hideMsg('custIdMsg');
+}
+
+// ── XHR GET ──
+function xhrGet(url, callback) {
+  var xhr = new XMLHttpRequest();
+  var done = false;
+  var timer = setTimeout(function() {
+    if (!done) { done = true; xhr.abort(); callback(null, 'Timeout'); }
+  }, TIMEOUT_MS);
+  xhr.open('GET', url, true);
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && !done) {
+      done = true; clearTimeout(timer);
+      if (xhr.status === 200) {
+        try { callback(JSON.parse(xhr.responseText), null); }
+        catch(e) { callback(null, 'Parse error'); }
+      } else {
+        callback(null, 'HTTP ' + xhr.status);
+      }
+    }
+  };
+  xhr.send();
+}
+
+// ── XHR POST ──
+function xhrPost(url, data, callback) {
+  var xhr = new XMLHttpRequest();
+  var done = false;
+  var timer = setTimeout(function() {
+    if (!done) { done = true; xhr.abort(); callback(null, 'Timeout'); }
+  }, TIMEOUT_MS);
+  xhr.open('POST', url, true);
+  xhr.setRequestHeader('Content-Type', 'text/plain');
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && !done) {
+      done = true; clearTimeout(timer);
+      if (xhr.status === 200) {
+        try { callback(JSON.parse(xhr.responseText), null); }
+        catch(e) { callback(null, 'Parse error'); }
+      } else {
+        callback(null, 'HTTP ' + xhr.status);
+      }
+    }
+  };
+  xhr.send(JSON.stringify(data));
+}
+
+// ── VERIFY PHONE ──
+function verifyPhone() {
+  var val = document.getElementById('phoneInput').value.trim();
+  if (!val || !/^\d{10}$/.test(val)) {
+    showMsg('phoneMsg', 'Please enter a valid 10-digit mobile number.', 'error');
+    return;
+  }
+  hideMsg('phoneMsg');
+  showSpinner('Checking mobile number...');
+  document.getElementById('phoneVerifyBtn').disabled = true;
+
+  var url = SCRIPT_URL + '?action=fetch&mobile=' + encodeURIComponent(val);
+  xhrGet(url, function(res, err) {
+    hideSpinner();
+    if (err || !res) {
+      showMsg('phoneMsg', 'Connection error. Please try again.', 'error');
+      document.getElementById('phoneVerifyBtn').disabled = false;
+      return;
+    }
+    if (res.success && res.data) {
+      appState.verified = true;
+      appState.customerData = res.data;
+      revealForm(res.data);
+    } else {
+      showMsg('phoneMsg', 'This mobile number is not registered. Please check the number or use your Customer ID.', 'error');
+      document.getElementById('phoneVerifyBtn').disabled = false;
+    }
+  });
+}
+
+// ── VERIFY CUSTOMER ID ──
+function verifyCustId() {
+  var val = document.getElementById('custIdInput').value.trim();
+  if (!val) {
+    showMsg('custIdMsg', 'Please enter your Customer ID.', 'error');
+    return;
+  }
+  hideMsg('custIdMsg');
+  showSpinner('Checking Customer ID...');
+  document.getElementById('custIdVerifyBtn').disabled = true;
+
+  var url = SCRIPT_URL + '?action=fetchByCustomerId&customerId=' + encodeURIComponent(val);
+  xhrGet(url, function(res, err) {
+    hideSpinner();
+    if (err || !res) {
+      showMsg('custIdMsg', 'Connection error. Please try again.', 'error');
+      document.getElementById('custIdVerifyBtn').disabled = false;
+      return;
+    }
+    if (res.success && res.data) {
+      appState.verified = true;
+      appState.customerData = res.data;
+      revealForm(res.data);
+    } else {
+      showMsg('custIdMsg', 'This Customer ID does not exist. Please check with your registered number or a valid Customer ID.', 'error');
+      document.getElementById('custIdVerifyBtn').disabled = false;
+    }
+  });
+}
+
+// ── REVEAL FORM ──
+function revealForm(data) {
+  var name = ((data.firstName || '') + ' ' + (data.lastName || '')).trim() || 'Customer';
+  document.getElementById('badgeName').textContent = name;
+  document.getElementById('badgeId').textContent =
+    'Customer ID: ' + (data.customerId || '--') +
+    (data.mobileNumber ? '   |   Mobile: ' + data.mobileNumber : '');
+
+  document.getElementById('customerBadge').classList.add('show');
+  document.getElementById('formDivider').style.display = '';
+  document.getElementById('requestForm').classList.add('show');
+
+  // Lock verification controls
+  document.getElementById('btnPhone').disabled    = true;
+  document.getElementById('btnCustId').disabled   = true;
+  document.getElementById('phoneInput').disabled  = true;
+  document.getElementById('custIdInput').disabled = true;
+  document.getElementById('phoneVerifyBtn').disabled  = true;
+  document.getElementById('custIdVerifyBtn').disabled = true;
+
+  document.getElementById('requestForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ── CATEGORY SELECT ──
+function selectCat(el, val) {
+  var opts = document.querySelectorAll('.cat-option');
+  for (var i = 0; i < opts.length; i++) { opts[i].classList.remove('selected'); }
+  el.classList.add('selected');
+  appState.selectedCategory = val;
+}
+
+// ── SUBMIT ──
+function submitRequest() {
+  if (!appState.verified || !appState.customerData) {
+    showMsg('submitMsg', 'Please verify your identity first.', 'error');
+    return;
+  }
+  var category = appState.selectedCategory;
+  var subject  = document.getElementById('subjectInput').value.trim();
+  var desc     = document.getElementById('descInput').value.trim();
+  var contact  = document.getElementById('contactPref').value;
+
+  if (!category) {
+    showMsg('submitMsg', 'Please select an issue category.', 'error');
+    document.getElementById('catGrid').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+  if (!subject) {
+    showMsg('submitMsg', 'Please enter a subject for your request.', 'error');
+    return;
+  }
+  if (desc.length < 15) {
+    showMsg('submitMsg', 'Please describe your issue in at least 15 characters.', 'error');
+    return;
+  }
+
+  hideMsg('submitMsg');
+  showSpinner('Submitting your request...');
+  document.getElementById('finalSubmitBtn').disabled = true;
+
+  var ticketId = 'TKT-' + Date.now();
+  var payload = {
+    action:       'submitSupportRequest',
+    customerId:   appState.customerData.customerId   || '',
+    mobileNumber: appState.customerData.mobileNumber || '',
+    firstName:    appState.customerData.firstName    || '',
+    lastName:     appState.customerData.lastName     || '',
+    category:     category,
+    subject:      subject,
+    description:  desc,
+    contactPref:  contact,
+    ticketId:     ticketId
+  };
+
+  xhrPost(SUPPORT_SCRIPT_URL, payload, function(res, err) {
+    hideSpinner();
+    if (err || !res) {
+      showMsg('submitMsg', 'Network error. Please check your connection and try again.', 'error');
+      document.getElementById('finalSubmitBtn').disabled = false;
+      return;
+    }
+    if (!res.success) {
+      showMsg('submitMsg', res.message || 'Submission failed. Please try again.', 'error');
+      document.getElementById('finalSubmitBtn').disabled = false;
+      return;
+    }
+    var finalTicket = (res.data && res.data.ticketId) ? res.data.ticketId : ticketId;
+    document.getElementById('formContent').style.display = 'none';
+    document.getElementById('ticketNum').textContent = 'Ticket ID: ' + finalTicket;
+    document.getElementById('successScreen').classList.add('show');
+  });
+}
+
+// ── ENTER KEY ──
+document.getElementById('phoneInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') { e.preventDefault(); verifyPhone(); }
+});
+document.getElementById('custIdInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') { e.preventDefault(); verifyCustId(); }
+});
+</script>
+</body>
+</html>
