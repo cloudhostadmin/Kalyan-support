@@ -27,7 +27,6 @@
       --radius:      12px;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
       font-family: 'DM Sans', sans-serif;
       background: var(--cream);
@@ -40,7 +39,6 @@
       align-items: center;
       padding: 32px 16px 56px;
     }
-
     .card {
       width: 100%;
       max-width: 620px;
@@ -54,7 +52,6 @@
       from { opacity:0; transform:translateY(28px) scale(.98); }
       to   { opacity:1; transform:translateY(0) scale(1); }
     }
-
     .banner {
       background: linear-gradient(135deg, #c98a10 0%, #a36a00 55%, #7a4f00 100%);
       padding: 28px 32px 24px;
@@ -101,9 +98,7 @@
       margin-top: 6px;
       font-style: italic;
     }
-
     .body { padding: 32px; }
-
     .section-title {
       font-family: 'Playfair Display', serif;
       font-size: 20px;
@@ -116,7 +111,6 @@
       margin-bottom: 24px;
       line-height: 1.55;
     }
-
     /* TOGGLE */
     .toggle-row {
       display: flex;
@@ -150,13 +144,12 @@
       background: #fffbf4;
     }
     .toggle-btn:disabled { cursor: default; opacity: .7; }
-
     /* PANELS */
     .lookup-panel { display: none; }
     .lookup-panel.active { display: block; }
-
     /* FORM */
     .field { margin-bottom: 20px; }
+    .field.hidden { display: none; }
     label {
       display: block;
       font-size: 13px;
@@ -165,8 +158,8 @@
       margin-bottom: 7px;
     }
     label .req { color: var(--error); margin-left: 2px; }
-
-    input[type="text"], input[type="tel"], textarea, select {
+    label .hint { font-weight: 400; color: var(--ink-light); font-size: 12px; }
+    input[type="text"], input[type="tel"], input[type="email"], textarea, select {
       width: 100%;
       padding: 12px 14px;
       border: 2px solid #e5d8c0;
@@ -192,7 +185,6 @@
     input::placeholder, textarea::placeholder { color: #b8a680; }
     textarea { resize: vertical; min-height: 110px; line-height: 1.6; }
     .char-hint { font-size: 11.5px; color: #b0956a; text-align: right; margin-top: 4px; }
-
     /* MESSAGES */
     .msg {
       border-radius: var(--radius);
@@ -207,12 +199,10 @@
     .msg.error   { background: var(--error-bg);   color: var(--error);   border: 1.5px solid #f5c5be; }
     .msg.success { background: var(--success-bg); color: var(--success); border: 1.5px solid #a8e6c5; }
     .msg.info    { background: #fff8e6;            color: #7a5500;        border: 1.5px solid var(--gold-border); }
-
     /* DIVIDER */
     .divider { display: flex; align-items: center; gap: 12px; margin: 8px 0 24px; }
     .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--gold-border); }
     .divider span { font-size: 11.5px; color: var(--ink-light); white-space: nowrap; }
-
     /* CUSTOMER BADGE */
     .customer-badge {
       display: none;
@@ -230,38 +220,6 @@
       margin-bottom: 2px;
     }
     .customer-badge-id { font-size: 12px; color: var(--ink-light); }
-
-    /* CATEGORY GRID */
-    .cat-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 8px;
-      margin-bottom: 4px;
-    }
-    .cat-option {
-      padding: 10px 12px;
-      border-radius: 10px;
-      border: 1.5px solid #e5d8c0;
-      background: var(--cream-mid);
-      font-size: 12.5px;
-      color: var(--ink-mid);
-      cursor: pointer;
-      transition: all .18s;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      user-select: none;
-    }
-    .cat-option.selected {
-      border-color: var(--gold);
-      background: var(--gold-pale);
-      color: var(--gold-dark);
-      font-weight: 600;
-    }
-    .cat-option:hover:not(.selected) { border-color: var(--gold-light); background: #fffbf4; }
-    .cat-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold-border); flex-shrink: 0; }
-    .cat-option.selected .cat-dot { background: var(--gold); }
-
     /* SUBMIT BUTTON */
     .submit-btn {
       width: 100%;
@@ -281,11 +239,9 @@
     .submit-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(163,106,0,.32); }
     .submit-btn:active:not(:disabled) { transform: translateY(0); }
     .submit-btn:disabled { opacity: .55; cursor: not-allowed; transform: none; }
-
     /* FORM SECTION */
     .form-section { display: none; }
     .form-section.show { display: block; }
-
     /* SPINNER */
     .spinner-wrap {
       display: none;
@@ -315,7 +271,6 @@
     }
     @keyframes spin { to { transform: rotate(360deg); } }
     .spinner-box p { font-size: 14px; color: var(--ink-mid); font-weight: 500; }
-
     /* SUCCESS SCREEN */
     .success-screen { display: none; text-align: center; padding: 48px 32px; }
     .success-screen.show { display: block; }
@@ -347,25 +302,21 @@
       font-weight: 600;
       letter-spacing: .04em;
     }
-
     @media (max-width: 520px) {
       .banner { padding: 22px 20px 20px; flex-direction: column; text-align: center; }
       .body { padding: 24px 20px; }
       .banner-title { font-size: 22px; }
-      .cat-grid { grid-template-columns: 1fr; }
       .toggle-row { flex-direction: column; }
     }
   </style>
 </head>
 <body>
-
 <div class="spinner-wrap" id="spinnerWrap">
   <div class="spinner-box">
     <div class="spinner"></div>
     <p id="spinnerMsg">Processing...</p>
   </div>
 </div>
-
 <div class="card">
   <div class="banner">
     <img src="https://raw.githubusercontent.com/cloudhostadmin/Kalyan-support/main/logo1080.png"
@@ -376,9 +327,7 @@
       <div class="banner-tagline">Customer Support &amp; Grievance Portal</div>
     </div>
   </div>
-
   <div class="body">
-
     <!-- SUCCESS -->
     <div class="success-screen" id="successScreen">
       <div class="success-icon">&#10003;</div>
@@ -386,14 +335,12 @@
       <p class="success-desc">Your support request has been received.<br>Our team will get back to you shortly.</p>
       <div class="ticket-num" id="ticketNum"></div>
     </div>
-
     <!-- FORM CONTENT -->
     <div id="formContent">
       <div class="section-title">Submit a Support Request</div>
       <p class="section-desc">
         Please verify your identity first &mdash; use your <strong>registered mobile number</strong> or <strong>Customer ID</strong>.
       </p>
-
       <!-- TOGGLE -->
       <div class="toggle-row">
         <button class="toggle-btn active" id="btnPhone" onclick="switchMode('phone')">
@@ -403,7 +350,6 @@
           <span class="icon">&#128196;</span>Customer ID
         </button>
       </div>
-
       <!-- PHONE PANEL -->
       <div class="lookup-panel active" id="phonePanel">
         <div class="field">
@@ -413,7 +359,6 @@
         <div class="msg" id="phoneMsg"></div>
         <button class="submit-btn" id="phoneVerifyBtn" onclick="verifyPhone()">Verify &amp; Continue</button>
       </div>
-
       <!-- CUSTOMER ID PANEL -->
       <div class="lookup-panel" id="custIdPanel">
         <div class="field">
@@ -423,7 +368,6 @@
         <div class="msg" id="custIdMsg"></div>
         <button class="submit-btn" id="custIdVerifyBtn" onclick="verifyCustId()">Verify &amp; Continue</button>
       </div>
-
       <!-- AFTER VERIFY -->
       <div class="divider" id="formDivider" style="display:none">
         <span>&#10022; Verified &mdash; complete your request below &#10022;</span>
@@ -432,64 +376,49 @@
         <div class="customer-badge-name" id="badgeName"></div>
         <div class="customer-badge-id" id="badgeId"></div>
       </div>
-
       <!-- REQUEST FORM -->
       <div class="form-section" id="requestForm">
-        <div class="field">
-          <label>Issue Category <span class="req">*</span></label>
-          <div class="cat-grid" id="catGrid">
-            <div class="cat-option" onclick="selectCat(this,'Subscription Issue')"><span class="cat-dot"></span>Subscription Issue</div>
-            <div class="cat-option" onclick="selectCat(this,'Delivery Problem')"><span class="cat-dot"></span>Delivery Problem</div>
-            <div class="cat-option" onclick="selectCat(this,'Address Update')"><span class="cat-dot"></span>Address Update</div>
-            <div class="cat-option" onclick="selectCat(this,'Payment / Billing')"><span class="cat-dot"></span>Payment / Billing</div>
-            <div class="cat-option" onclick="selectCat(this,'Missing Issue / Magazine')"><span class="cat-dot"></span>Missing Issue / Magazine</div>
-            <div class="cat-option" onclick="selectCat(this,'Other')"><span class="cat-dot"></span>Other</div>
-          </div>
-        </div>
-
         <div class="field">
           <label for="subjectInput">Subject <span class="req">*</span></label>
           <input type="text" id="subjectInput" placeholder="Brief subject of your query" maxlength="120">
         </div>
-
         <div class="field">
           <label for="descInput">Describe Your Issue <span class="req">*</span></label>
           <textarea id="descInput" maxlength="800" placeholder="Please describe your issue in detail..." oninput="updateCharCount()"></textarea>
           <div class="char-hint"><span id="charCount">0</span> / 800 characters</div>
         </div>
-
         <div class="field">
-          <label for="contactPref">Preferred Contact Method</label>
-          <select id="contactPref">
-            <option value="">-- Select (optional) --</option>
+          <label for="contactPref">Preferred Contact Method <span class="req">*</span></label>
+          <select id="contactPref" onchange="handleContactMethodChange()">
+            <option value="">-- Please select --</option>
             <option value="SMS">SMS / WhatsApp</option>
             <option value="Call">Phone Call</option>
             <option value="Email">Email</option>
           </select>
         </div>
-
+        <!-- DYNAMIC CONTACT INPUT (hidden by default) -->
+        <div class="field hidden" id="dynamicContactField">
+          <label for="dynamicContactInput"><span id="dynamicContactLabel"></span> <span class="req">*</span></label>
+          <input type="text" id="dynamicContactInput" placeholder="">
+          <div class="msg info show" id="dynamicContactHint"></div>
+        </div>
         <div class="msg" id="submitMsg"></div>
         <button class="submit-btn" id="finalSubmitBtn" onclick="submitRequest()">Submit Support Request</button>
       </div>
     </div>
-
   </div>
 </div>
-
 <script>
 // ── CONFIG ──
 var SCRIPT_URL         = 'https://script.google.com/macros/s/AKfycbyu57KKl5UqYhh9e7wCvepLPxSNuAK9SsV5xQAk1kuo6catp-joGDo1vQ5sZMbZmOHl/exec';
-var SUPPORT_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzgWDA4MhODFYnxHtnDfmJOAazRMS1o54lTIBrPhNAGJ9xNUJE2C-rWVlk67dP_dnF2/exec';
+var SUPPORT_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyjjAfw-aQpzM5sfF_2xXVh5dRX5ypGyqqz7In0xBH2Nx5IgBCPQyqgPBTyyn7gj8U/exec';
 var TIMEOUT_MS         = 28000;
-
 // ── STATE ──
 var appState = {
   mode: 'phone',
   verified: false,
-  customerData: null,
-  selectedCategory: ''
+  customerData: null
 };
-
 // ── UI HELPERS ──
 function showSpinner(msg) {
   document.getElementById('spinnerMsg').textContent = msg || 'Processing...';
@@ -511,25 +440,19 @@ function hideMsg(id) {
 function updateCharCount() {
   document.getElementById('charCount').textContent = document.getElementById('descInput').value.length;
 }
-
 // ── TOGGLE MODE ──
 function switchMode(mode) {
   if (appState.verified) { return; }
   appState.mode = mode;
-
   var isPhone  = (mode === 'phone');
   var isCustId = (mode === 'custid');
-
   document.getElementById('btnPhone').className  = isPhone  ? 'toggle-btn active' : 'toggle-btn';
   document.getElementById('btnCustId').className = isCustId ? 'toggle-btn active' : 'toggle-btn';
-
   document.getElementById('phonePanel').className  = isPhone  ? 'lookup-panel active' : 'lookup-panel';
   document.getElementById('custIdPanel').className = isCustId ? 'lookup-panel active' : 'lookup-panel';
-
   hideMsg('phoneMsg');
   hideMsg('custIdMsg');
 }
-
 // ── XHR GET ──
 function xhrGet(url, callback) {
   var xhr = new XMLHttpRequest();
@@ -551,7 +474,6 @@ function xhrGet(url, callback) {
   };
   xhr.send();
 }
-
 // ── XHR POST ──
 function xhrPost(url, data, callback) {
   var xhr = new XMLHttpRequest();
@@ -574,7 +496,6 @@ function xhrPost(url, data, callback) {
   };
   xhr.send(JSON.stringify(data));
 }
-
 // ── VERIFY PHONE ──
 function verifyPhone() {
   var val = document.getElementById('phoneInput').value.trim();
@@ -585,7 +506,6 @@ function verifyPhone() {
   hideMsg('phoneMsg');
   showSpinner('Checking mobile number...');
   document.getElementById('phoneVerifyBtn').disabled = true;
-
   var url = SCRIPT_URL + '?action=fetch&mobile=' + encodeURIComponent(val);
   xhrGet(url, function(res, err) {
     hideSpinner();
@@ -604,7 +524,6 @@ function verifyPhone() {
     }
   });
 }
-
 // ── VERIFY CUSTOMER ID ──
 function verifyCustId() {
   var val = document.getElementById('custIdInput').value.trim();
@@ -615,7 +534,6 @@ function verifyCustId() {
   hideMsg('custIdMsg');
   showSpinner('Checking Customer ID...');
   document.getElementById('custIdVerifyBtn').disabled = true;
-
   var url = SCRIPT_URL + '?action=fetchByCustomerId&customerId=' + encodeURIComponent(val);
   xhrGet(url, function(res, err) {
     hideSpinner();
@@ -634,19 +552,17 @@ function verifyCustId() {
     }
   });
 }
-
 // ── REVEAL FORM ──
 function revealForm(data) {
   var name = ((data.firstName || '') + ' ' + (data.lastName || '')).trim() || 'Customer';
   document.getElementById('badgeName').textContent = name;
   document.getElementById('badgeId').textContent =
     'Customer ID: ' + (data.customerId || '--') +
-    (data.mobileNumber ? '   |   Mobile: ' + data.mobileNumber : '');
-
+    (data.mobileNumber ? '   |   Mobile: ' + data.mobileNumber : '') +
+    (data.emailId ? '   |   Email: ' + data.emailId : '');
   document.getElementById('customerBadge').classList.add('show');
   document.getElementById('formDivider').style.display = '';
   document.getElementById('requestForm').classList.add('show');
-
   // Lock verification controls
   document.getElementById('btnPhone').disabled    = true;
   document.getElementById('btnCustId').disabled   = true;
@@ -654,34 +570,83 @@ function revealForm(data) {
   document.getElementById('custIdInput').disabled = true;
   document.getElementById('phoneVerifyBtn').disabled  = true;
   document.getElementById('custIdVerifyBtn').disabled = true;
-
   document.getElementById('requestForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
-
-// ── CATEGORY SELECT ──
-function selectCat(el, val) {
-  var opts = document.querySelectorAll('.cat-option');
-  for (var i = 0; i < opts.length; i++) { opts[i].classList.remove('selected'); }
-  el.classList.add('selected');
-  appState.selectedCategory = val;
+// ── HANDLE CONTACT METHOD CHANGE ──
+function handleContactMethodChange() {
+  var method = document.getElementById('contactPref').value;
+  var dynamicField = document.getElementById('dynamicContactField');
+  var dynamicInput = document.getElementById('dynamicContactInput');
+  var dynamicLabel = document.getElementById('dynamicContactLabel');
+  var dynamicHint  = document.getElementById('dynamicContactHint');
+  
+  // Hide by default
+  dynamicField.classList.add('hidden');
+  dynamicInput.value = '';
+  dynamicInput.type = 'text';
+  
+  if (!method || !appState.customerData) {
+    return;
+  }
+  
+  var data = appState.customerData;
+  var needsInput = false;
+  var labelText = '';
+  var hintText = '';
+  var placeholderText = '';
+  
+  if (method === 'SMS') {
+    // Check if mobile exists
+    if (!data.mobileNumber || data.mobileNumber.trim() === '') {
+      needsInput = true;
+      labelText = 'Mobile Number';
+      hintText = 'We don\'t have your mobile number on file. Please provide it for SMS/WhatsApp contact.';
+      placeholderText = 'Enter 10-digit mobile number';
+      dynamicInput.type = 'tel';
+      dynamicInput.maxLength = 10;
+      dynamicInput.inputMode = 'numeric';
+    }
+  } else if (method === 'Call') {
+    // Check if mobile exists
+    if (!data.mobileNumber || data.mobileNumber.trim() === '') {
+      needsInput = true;
+      labelText = 'Mobile Number';
+      hintText = 'We don\'t have your mobile number on file. Please provide it for phone call contact.';
+      placeholderText = 'Enter 10-digit mobile number';
+      dynamicInput.type = 'tel';
+      dynamicInput.maxLength = 10;
+      dynamicInput.inputMode = 'numeric';
+    }
+  } else if (method === 'Email') {
+    // Check if email exists
+    if (!data.emailId || data.emailId.trim() === '') {
+      needsInput = true;
+      labelText = 'Email Address';
+      hintText = 'We don\'t have your email address. Please provide it for email contact.';
+      placeholderText = 'Enter your email address';
+      dynamicInput.type = 'email';
+      dynamicInput.maxLength = 100;
+      dynamicInput.inputMode = 'email';
+    }
+  }
+  
+  if (needsInput) {
+    dynamicLabel.textContent = labelText;
+    dynamicHint.textContent = hintText;
+    dynamicInput.placeholder = placeholderText;
+    dynamicField.classList.remove('hidden');
+  }
 }
-
 // ── SUBMIT ──
 function submitRequest() {
   if (!appState.verified || !appState.customerData) {
     showMsg('submitMsg', 'Please verify your identity first.', 'error');
     return;
   }
-  var category = appState.selectedCategory;
   var subject  = document.getElementById('subjectInput').value.trim();
   var desc     = document.getElementById('descInput').value.trim();
   var contact  = document.getElementById('contactPref').value;
-
-  if (!category) {
-    showMsg('submitMsg', 'Please select an issue category.', 'error');
-    document.getElementById('catGrid').scrollIntoView({ behavior: 'smooth', block: 'center' });
-    return;
-  }
+  
   if (!subject) {
     showMsg('submitMsg', 'Please enter a subject for your request.', 'error');
     return;
@@ -690,25 +655,63 @@ function submitRequest() {
     showMsg('submitMsg', 'Please describe your issue in at least 15 characters.', 'error');
     return;
   }
-
+  if (!contact) {
+    showMsg('submitMsg', 'Please select a preferred contact method.', 'error');
+    document.getElementById('contactPref').focus();
+    return;
+  }
+  
+  // Check if dynamic field is visible (meaning contact info is missing)
+  var dynamicField = document.getElementById('dynamicContactField');
+  var contactInfo = '';
+  if (!dynamicField.classList.contains('hidden')) {
+    var dynamicValue = document.getElementById('dynamicContactInput').value.trim();
+    if (!dynamicValue) {
+      showMsg('submitMsg', 'Please provide your ' + document.getElementById('dynamicContactLabel').textContent.toLowerCase() + '.', 'error');
+      document.getElementById('dynamicContactInput').focus();
+      return;
+    }
+    // Validate based on type
+    if (contact === 'SMS' || contact === 'Call') {
+      if (!/^\d{10}$/.test(dynamicValue)) {
+        showMsg('submitMsg', 'Please enter a valid 10-digit mobile number.', 'error');
+        document.getElementById('dynamicContactInput').focus();
+        return;
+      }
+    } else if (contact === 'Email') {
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(dynamicValue)) {
+        showMsg('submitMsg', 'Please enter a valid email address.', 'error');
+        document.getElementById('dynamicContactInput').focus();
+        return;
+      }
+    }
+    contactInfo = dynamicValue;
+  } else {
+    // Use existing data
+    if (contact === 'SMS' || contact === 'Call') {
+      contactInfo = appState.customerData.mobileNumber || '';
+    } else if (contact === 'Email') {
+      contactInfo = appState.customerData.emailId || '';
+    }
+  }
+  
   hideMsg('submitMsg');
   showSpinner('Submitting your request...');
   document.getElementById('finalSubmitBtn').disabled = true;
-
   var ticketId = 'TKT-' + Date.now();
   var payload = {
-    action:       'submitSupportRequest',
-    customerId:   appState.customerData.customerId   || '',
-    mobileNumber: appState.customerData.mobileNumber || '',
-    firstName:    appState.customerData.firstName    || '',
-    lastName:     appState.customerData.lastName     || '',
-    category:     category,
-    subject:      subject,
-    description:  desc,
-    contactPref:  contact,
-    ticketId:     ticketId
+    action:           'submitSupportRequest',
+    customerId:       appState.customerData.customerId   || '',
+    mobileNumber:     appState.customerData.mobileNumber || '',
+    firstName:        appState.customerData.firstName    || '',
+    lastName:         appState.customerData.lastName     || '',
+    category:         'General Support',
+    subject:          subject,
+    description:      desc,
+    contactPref:      contact,
+    contactInfo:      contactInfo,
+    ticketId:         ticketId
   };
-
   xhrPost(SUPPORT_SCRIPT_URL, payload, function(res, err) {
     hideSpinner();
     if (err || !res) {
@@ -727,7 +730,6 @@ function submitRequest() {
     document.getElementById('successScreen').classList.add('show');
   });
 }
-
 // ── ENTER KEY ──
 document.getElementById('phoneInput').addEventListener('keydown', function(e) {
   if (e.key === 'Enter') { e.preventDefault(); verifyPhone(); }
@@ -737,5 +739,4 @@ document.getElementById('custIdInput').addEventListener('keydown', function(e) {
 });
 </script>
 </body>
-
 </html>
